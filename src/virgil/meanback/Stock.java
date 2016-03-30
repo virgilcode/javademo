@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,25 +46,34 @@ public class Stock {
         return dayList;
     }
 
-    public Map<String, String> getMeanGroup(int days) {
-        Map<String, String> map = new HashMap<>();
-        float[] f = new float[days];
-        for (int i = 0; i < days; i++) {
+    /*
+     * @days 几日均值
+     * @listDays 判断的时间长度数据
+     */
+    public List<String[]> getMeanGroup(int days, int listDays) {
+        List<String[]> l = new ArrayList<>();
+        float[] f = new float[listDays];
+        for (int i = 0; i < listDays; i++) {
+            String[] s = new String[2];
             List<DayInfo> dl = getBeforeDaysData(this.list.get(i).getDateString(), days);
             f[i] = getMeanValue(days, dl);
-            System.out.println(f[i]);
-            map.put(this.list.get(i).getDateString(), String.valueOf(f[i]));
+            s[0] = this.list.get(i).getDateString();
+            s[1] = String.valueOf(f[i]);
+            l.add(s);
         }
-        return map;
+        return l;
     }
 
     public float getMeanValue(int days, List<DayInfo> list) {
         float sum = 0;
         for (int i = 0; i < days; i++) {
-            sum = sum + Float.parseFloat(list.get(i).getClose());
+            sum += Float.parseFloat(list.get(i).getClose());
         }
-        return sum / days;
+        float a = sum / days;
+        return (float) (Math.round(a * 100)) / 100;
     }
+
+    
 
     public Map<String, DayInfo> getMap() {
         return map;
@@ -96,5 +106,4 @@ public class Stock {
     public void setList(List<DayInfo> list) {
         this.list = list;
     }
-
 }

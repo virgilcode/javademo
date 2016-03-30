@@ -9,11 +9,26 @@ import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import java.awt.Font;
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import org.jfree.chart.ChartColor;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.ChartUtilities;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.StandardChartTheme;
+import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.xy.XYDataset;
 import org.jsoup.Jsoup;
@@ -58,6 +73,7 @@ public class HistoryInfo {
                 Date date = format.parse(dateString);
                 String open = el.select("td").eq(1).text();
                 String close = el.select("td").eq(2).text();
+                double cd = Double.parseDouble(close);
                 String low = el.select("td").eq(5).text();
                 String high = el.select("td").eq(6).text();
                 String volume = el.select("td").eq(7).text();
@@ -75,16 +91,70 @@ public class HistoryInfo {
                 }
             }
         }
+        ;
         stock.setList(list);
         return stock;
     }
 
-    public void printChart(Map<String, String> map) {
-        TimeSeries timeseries = new TimeSeries("20日均线",org.jfree.data.time.Month.class);
-        for(Map.Entry<String,String> entry:map.entrySet()){
-            
+    public double[] getAxiasThresold(Stock stock, List<String[]> list) {
+        double[] d = new double[2];
+        double min = 1000.0;
+        double max = 0.0;
+        List<DayInfo> l = stock.getList();
+        for (int i = 0; i < list.size(); i++) {
+            DayInfo info = l.get(i);
+            double dd = Double.parseDouble(info.getClose());
+            if (dd > max) {
+                max = dd;
+            }
+            if (dd < min) {
+                min = dd;
+            }
         }
-        XYDataset xydataset;
+        d[0]=min;
+        d[1]=max;
+        return d;
+    }
+
+    public void printChart(Stock stock, List<String[]> list) {
+        //创建主题样式
+        StandardChartTheme standardChartTheme = new StandardChartTheme("CN");
+        //设置标题字体
+        standardChartTheme.setExtraLargeFont(new Font("隶书", Font.BOLD, 20));
+        //设置图例的字体
+        standardChartTheme.setRegularFont(new Font("隶书", Font.BOLD, 18));
+        //设置轴向的字体
+        standardChartTheme.setLargeFont(new Font("隶书", Font.BOLD, 18));
+        //应用主题样式
+        ChartFactory.setChartTheme(standardChartTheme);
+        DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
+        for (int i = 0; i < list.size(); i++) {
+            String[] s = (String[]) list.get(i);
+            dataSet.addValue(Double.parseDouble(s[1]), "MD20", s[0]);
+            dataSet.addValue(Double.parseDouble(stock.getList().get(i).getClose()), "日K", s[0]);
+        }
+//        for (Iterator it = list.iterator(); it.hasNext();) {
+//            String[] s = (String[]) it.next();
+//            dataSet.addValue(Double.parseDouble(s[1]), "MD20", s[0]);
+//        }
+
+        //第一个参数是标题，第二个参数是一个数据集，第三个参数表示是否显示Legend
+        //第四个参数表示是否显示提示
+        //第五个参数表示图中是否存在URL
+        JFreeChart chart = ChartFactory.createLineChart("股价走势图 ", "价格", "日期",
+                dataSet, PlotOrientation.VERTICAL, true, true, false);
+
+        CategoryPlot cp = chart.getCategoryPlot();
+        cp.setBackgroundPaint(ChartColor.WHITE); // 背景色设置
+        ValueAxis yAxis = cp.getRangeAxis();
+        yAxis.setAutoRange(true);
+        double[] d = getAxiasThresold(stock, list);
+        yAxis.setLowerBound(d[0] - 0.01);
+        yAxis.setUpperBound(d[1] + 0.01);
+        ChartFrame chartFrame = new ChartFrame("均值回归", chart, true);
+        //chart要放在Java容器组件中，ChartFrame继承自java的Jframe类。该第一个参数的数据是放在窗口左上角的，不是正中间的标题。
+        chartFrame.pack(); //以合适的大小展现图形
+        chartFrame.setVisible(true);//图形是否可见
     }
 
     public static void main(String[] args) throws Exception {
@@ -94,8 +164,7 @@ public class HistoryInfo {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date date = format.parse("2016-03-30");
         System.out.println(stock.getList().get(0).getDate().toString());
-        stock.getBeforeDaysData("2016-03-29", 20);
-        System.out.println(stock.getMeanGroup(20));
-
+        hq.printChart(stock, stock.getMeanGroup(20, 30));
+        //hq.test();
     }
 }
