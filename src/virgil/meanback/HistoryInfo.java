@@ -9,7 +9,9 @@ import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import java.awt.BasicStroke;
 import java.awt.Font;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ import org.jfree.chart.StandardChartTheme;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
@@ -142,30 +145,35 @@ public class HistoryInfo {
         return timeseriescollection;
     }
 
-    public void printChart(Stock stock, List<String[]> list) throws Exception {
+    public void printChart(Stock stock, List<String[]> list,int days) throws Exception {
         //创建主题样式
         StandardChartTheme standardChartTheme = new StandardChartTheme("CN");
         //设置标题字体
         standardChartTheme.setExtraLargeFont(new Font("隶书", Font.BOLD, 20));
         //设置图例的字体
-        standardChartTheme.setRegularFont(new Font("隶书", Font.BOLD, 18));
+        standardChartTheme.setRegularFont(new Font("隶书", Font.BOLD, 12));
         //设置轴向的字体
         standardChartTheme.setLargeFont(new Font("隶书", Font.BOLD, 18));
         //应用主题样式
         ChartFactory.setChartTheme(standardChartTheme);
         DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
-        for (int i = list.size()-1; i >=0; i--) {
+        for (int i = list.size() - 1; i >= 0; i--) {
             String[] s = (String[]) list.get(i);
-            dataSet.addValue(Double.parseDouble(s[1]), "MD20", s[0]);
+            dataSet.addValue(Double.parseDouble(s[1]), days+"日均线", s[0]);
             dataSet.addValue(Double.parseDouble(stock.getList().get(i).getClose()), "日K", s[0]);
+            float sub = Float.parseFloat(s[2]);
+            float error = Float.parseFloat(s[3]);
+            System.out.println(sub + ":" + error);
+            if (sub > error * 2) {
+                dataSet.addValue(Double.parseDouble(stock.getList().get(i).getClose()), "偏离点", s[0]);
+            }
         }
 
         //第一个参数是标题，第二个参数是一个数据集，第三个参数表示是否显示Legend
         //第四个参数表示是否显示提示
         //第五个参数表示图中是否存在URL
-        JFreeChart chart = ChartFactory.createLineChart("股价走势图 ", "时期", "价格",
+        JFreeChart chart = ChartFactory.createLineChart(stock.getName() + "(" + stock.getCode() + ")股价走势图 ", "时期", "价格",
                 dataSet, PlotOrientation.VERTICAL, true, true, false);
-
         CategoryPlot cp = chart.getCategoryPlot();
         cp.setBackgroundPaint(ChartColor.WHITE); // 背景色设置
         CategoryAxis categoryAxis = cp.getDomainAxis();
@@ -176,11 +184,22 @@ public class HistoryInfo {
         ValueAxis yAxis = cp.getRangeAxis();
         yAxis.setAutoRange(true);
         double[] d = getAxiasThresold(stock, list);
-        yAxis.setLowerBound(d[0] - 0.01);
-        yAxis.setUpperBound(d[1] + 0.01);
+        yAxis.setLowerBound(d[0] - 0.15);
+        yAxis.setUpperBound(d[1] + 0.15);
         LineAndShapeRenderer lasp = (LineAndShapeRenderer) cp.getRenderer();
         lasp.setBaseFillPaint(ChartColor.RED);
-        ChartFrame chartFrame = new ChartFrame("均值回归", chart, true);
+        lasp.setDrawOutlines(true);
+        lasp.setSeriesShape(0, new java.awt.geom.Ellipse2D.Double(-5D, -5D, 10D, 10D));
+        LineAndShapeRenderer renderer = (LineAndShapeRenderer) cp.getRenderer(1);//获取折线对象
+        DecimalFormat decimalformat1 = new DecimalFormat("##.##");//数据点显示数据值的格式
+        renderer.setItemLabelGenerator(new StandardCategoryItemLabelGenerator("{2}", decimalformat1));
+        //上面这句是设置数据项标签的生成器
+        renderer.setItemLabelsVisible(true);//设置项标签显示
+        renderer.setBaseItemLabelsVisible(true);//基本项标签显示
+        //上面这几句就决定了数据点按照设定的格式显示数据值
+        renderer.setShapesFilled(Boolean.TRUE);//在数据点显示实心的小图标
+        renderer.setShapesVisible(true);//设置显示小图标
+        ChartFrame chartFrame = new ChartFrame("均值回归量化模型", chart, true);
         //chart要放在Java容器组件中，ChartFrame继承自java的Jframe类。该第一个参数的数据是放在窗口左上角的，不是正中间的标题。
         chartFrame.pack(); //以合适的大小展现图形
         chartFrame.setVisible(true);//图形是否可见
@@ -193,7 +212,7 @@ public class HistoryInfo {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date date = format.parse("2016-03-30");
         System.out.println(stock.getList().get(0).getDate().toString());
-        hq.printChart(stock, stock.getMeanGroup(20, 30));
+        hq.printChart(stock, stock.getMeanGroup(20, 30),20);
         //hq.test();
     }
 }

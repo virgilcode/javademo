@@ -55,23 +55,50 @@ public class Stock {
         List<String[]> l = new ArrayList<>();
         float[] f = new float[listDays];
         for (int i = 0; i < listDays; i++) {
-            String[] s = new String[2];
+            String[] s = new String[5];
             List<DayInfo> dl = getBeforeDaysData(this.list.get(i).getDateString(), days);
             f[i] = getMeanValue(days, dl);
             float sub=f[i]-Float.parseFloat(this.list.get(i).getClose());
             s[0] = this.list.get(i).getDateString();
             s[1] = String.valueOf(f[i]);
-            s[3]=String.valueOf(sub);
+            s[2]=String.valueOf(sub);
+            s[3]=String.valueOf(getBeforeDaysSubValue(this.list.get(i).getDateString(),days));
             l.add(s);
         }
         return l;
     }
-    public void getBeforeDaysSubValue(String date,int days){
+    public float getBeforeDaysSubValue(String date,int days){
         List<DayInfo> dl = getBeforeDaysData(date, days);
         int p=getDayIndex(date);
+        float error=0;
         for(int i=p;i<p+days;i++){
-            
+            float sub=getSubValue(this.getList().get(i).getClose(), days)[1];
+            float submean=getSubMean(this.getList().get(i).getClose(), days);
+            error += (sub - submean) * (sub - submean);
         }
+        error /= days;
+        error=(float) Math.sqrt(error);
+        return error;
+    }
+    public float getSubMean(String date,int days){
+        int p=getDayIndex(date);
+        float submean=0;
+        float error=0;
+        for(int i=p;i<p+days;i++){
+            float[] f=getSubValue(this.getList().get(i).getClose(), days);
+            submean+=f[1];
+        }
+        return submean/days;
+    }
+    public float[] getSubValue(String date,int days){
+        int p=getDayIndex(date);
+        float[] f=new float[2];
+        List<DayInfo> d = getBeforeDaysData(date, days);
+        float mean=getMeanValue(days, d);
+        float sub=mean-Float.parseFloat(this.getList().get(p).getClose());
+        f[0]=mean;
+        f[1]=sub;
+        return f;
     }
 
     public float getMeanValue(int days, List<DayInfo> list) {
