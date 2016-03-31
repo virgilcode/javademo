@@ -46,6 +46,7 @@ public class Stock {
         return dayList;
     }
 
+    
     /*
      * @days 几日均值
      * @listDays 判断的时间长度数据
@@ -57,11 +58,20 @@ public class Stock {
             String[] s = new String[2];
             List<DayInfo> dl = getBeforeDaysData(this.list.get(i).getDateString(), days);
             f[i] = getMeanValue(days, dl);
+            float sub=f[i]-Float.parseFloat(this.list.get(i).getClose());
             s[0] = this.list.get(i).getDateString();
             s[1] = String.valueOf(f[i]);
+            s[3]=String.valueOf(sub);
             l.add(s);
         }
         return l;
+    }
+    public void getBeforeDaysSubValue(String date,int days){
+        List<DayInfo> dl = getBeforeDaysData(date, days);
+        int p=getDayIndex(date);
+        for(int i=p;i<p+days;i++){
+            
+        }
     }
 
     public float getMeanValue(int days, List<DayInfo> list) {
