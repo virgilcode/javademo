@@ -159,11 +159,10 @@ public class HistoryInfo {
         DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
         for (int i = list.size() - 1; i >= 0; i--) {
             String[] s = (String[]) list.get(i);
-            dataSet.addValue(Double.parseDouble(s[1]), days+"日均线", s[0]);
-            dataSet.addValue(Double.parseDouble(stock.getList().get(i).getClose()), "日K", s[0]);
+            dataSet.addValue(Double.parseDouble(s[1]), days+"日趋势线", s[0]);
+            dataSet.addValue(Double.parseDouble(stock.getList().get(i).getClose()), "日收", s[0]);
             float sub = Float.parseFloat(s[2]);
             float error = Float.parseFloat(s[3]);
-            System.out.println(sub + ":" + error);
             if (sub > error * 2) {
                 dataSet.addValue(Double.parseDouble(stock.getList().get(i).getClose()), "偏离点", s[0]);
             }
@@ -172,7 +171,7 @@ public class HistoryInfo {
         //第一个参数是标题，第二个参数是一个数据集，第三个参数表示是否显示Legend
         //第四个参数表示是否显示提示
         //第五个参数表示图中是否存在URL
-        JFreeChart chart = ChartFactory.createLineChart(stock.getName() + "(" + stock.getCode() + ")股价走势图 ", "时期", "价格",
+        JFreeChart chart = ChartFactory.createLineChart(stock.getName() + "(" + stock.getCode() + ")股价走势图 ", "时间", "价格",
                 dataSet, PlotOrientation.VERTICAL, true, true, false);
         CategoryPlot cp = chart.getCategoryPlot();
         cp.setBackgroundPaint(ChartColor.WHITE); // 背景色设置
