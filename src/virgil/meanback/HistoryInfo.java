@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
 import org.jfree.chart.ChartColor;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
@@ -50,7 +51,15 @@ import org.jsoup.select.Elements;
  */
 public class HistoryInfo {
 
+    /**
+     * 
+     * @param url
+     * @return
+     * @throws Exception
+     */
+    @SuppressWarnings("")
     public Stock parse(String url) throws Exception {
+        java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF);
         Stock stock = new Stock();
         List<DayInfo> list = new ArrayList<>();
         /**
@@ -145,7 +154,7 @@ public class HistoryInfo {
         return timeseriescollection;
     }
 
-    public void printChart(Stock stock, List<String[]> list,int days) throws Exception {
+    public void printChart(Stock stock, List<String[]> list, int days) throws Exception {
         //创建主题样式
         StandardChartTheme standardChartTheme = new StandardChartTheme("CN");
         //设置标题字体
@@ -159,7 +168,7 @@ public class HistoryInfo {
         DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
         for (int i = list.size() - 1; i >= 0; i--) {
             String[] s = (String[]) list.get(i);
-            dataSet.addValue(Double.parseDouble(s[1]), days+"日趋势线", s[0]);
+            dataSet.addValue(Double.parseDouble(s[1]), days + "日趋势线", s[0]);
             dataSet.addValue(Double.parseDouble(stock.getList().get(i).getClose()), "日收", s[0]);
             float sub = Float.parseFloat(s[2]);
             float error = Float.parseFloat(s[3]);
@@ -211,7 +220,7 @@ public class HistoryInfo {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date date = format.parse("2016-03-30");
         System.out.println(stock.getList().get(0).getDate().toString());
-        hq.printChart(stock, stock.getMeanGroup(20, 30),20);
+        hq.printChart(stock, stock.getMeanGroup(20, 30), 20);
         //hq.test();
     }
 }
