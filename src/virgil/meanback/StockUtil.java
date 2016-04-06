@@ -11,8 +11,13 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import net.sf.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -23,6 +28,8 @@ import org.jsoup.select.Elements;
  * @author Virgil
  */
 public class StockUtil {
+
+    WebClient wc = new WebClient(BrowserVersion.CHROME);
 
     public List<Stock> getAll() throws Exception {
         List<Stock> list = new ArrayList<>();
@@ -116,9 +123,86 @@ public class StockUtil {
         return res;
     }
 
+    public boolean findMatcherStockByCode(String code) throws Exception {
+        HistoryInfo info = new HistoryInfo();
+        String url = "http://q.stock.sohu.com/cn/" + code + "/lshq.shtml";
+        Stock ns = info.parse(url);
+        try {
+            String[] ss = ns.getMeanGroup(10, 10).get(0);
+            float sub = Float.parseFloat(ss[2]);
+            float error = Float.parseFloat(ss[3]);
+            if (sub > error * 2) {
+                return true;
+            }
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
+    //主力资金流入
+    public void getMeanBackStockByBuys(double price_min, double price_max) throws Exception {
+        wc.getOptions().setUseInsecureSSL(true);
+        wc.getOptions().setJavaScriptEnabled(true); // 启用JS解释器，默认为true  
+        wc.getOptions().setCssEnabled(false); // 禁用css支持  
+        wc.getOptions().setThrowExceptionOnScriptError(false); // js运行错误时，是否抛出异常  
+        wc.getOptions().setTimeout(50000); // 设置连接超时时间 ，这里是10S。如果为0，则无限期等待  
+        wc.getOptions().setDoNotTrackEnabled(false);
+        java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF);
+        Pattern pattern = Pattern.compile("^(0|6)\\d{5}$");
+        List<Stock> list = new ArrayList<>();
+        for (int p = 1; p <= 3; p++) {
+            String eastBuysUrl = "http://nufm.dfcfw.com/EM_Finance2014NumericApplication/JS.aspx/JS.aspx?type=ct&st=(FFARank)&sr=1&p=" + p + "&ps=50&js=var%20tnJcCXWW={pages:(pc),data:[(x)]}&token=894050c76af8597a853f5b408b759f5d&cmd=C._A&sty=DCFFITAMA&rt=48663654";
+            Document doc = Jsoup.connect(eastBuysUrl)
+                    .data("query", "Java")
+                    .userAgent("Mozilla")
+                    .cookie("auth", "token")
+                    .timeout(10000)
+                    .post();
+            String json = doc.body().text();
+            json = json.substring(json.indexOf("{"), json.length());
+            JSONObject jo = JSONObject.fromObject(json);
+            String data = jo.getString("data");
+            String[] arrays = data.split(",");
+            for (String a : arrays) {
+                Matcher m = pattern.matcher(a);
+                if (m.find()) {
+                    Stock stock = new Stock();
+                    String nurl = "";
+                    if (a.startsWith("6")) {
+                        nurl = "http://quote.eastmoney.com/sh" + a + ".html";
+                    } else {
+                        nurl = "http://quote.eastmoney.com/sz" + a + ".html";
+                    }
+                    HtmlPage page = wc.getPage(nurl);
+                    HtmlElement documentElement = page.getDocumentElement();
+                    Document ndoc = Jsoup.parse(documentElement.asXml());
+                    String name = ndoc.select("#name").text();
+                    stock.setName(name);
+                    stock.setCode(a);
+                    String price = ndoc.select("#price9").text();
+                    double dp = Double.parseDouble(price);
+                    if (dp > price_min && dp < price_max) {
+                        System.out.println(a + ":" + name);
+                        boolean res = findMatcherStockByCode(a);
+                        if (res) {
+                            list.add(stock);
+                        }
+                    }
+                }
+            }
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        System.out.println("查询结果：");
+        for (Iterator<Stock> it = list.iterator(); it.hasNext();) {
+            System.out.println(mapper.writeValueAsString(it.next()));
+        }
+
+    }
+
     public static void main(String[] args) throws Exception {
         StockUtil util = new StockUtil();
-        List<Stock> list = util.getAll();
-        util.searchStockByPrice(0.0, 10.0, true, list);
+//        List<Stock> list = util.getAll();
+//        util.searchStockByPrice(0.0, 10.0, true, list);
+        util.getMeanBackStockByBuys(1, 20);
     }
 }
