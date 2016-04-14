@@ -180,6 +180,7 @@ public class StockUtil {
                     stock.setName(name);
                     stock.setCode(a);
                     String price = ndoc.select("#price9").text();
+                    stock.setNowPrice(Double.parseDouble(price));
                     double dp = Double.parseDouble(price);
                     if (dp > price_min && dp < price_max) {
                         System.out.println(a + ":" + name);
@@ -203,6 +204,6 @@ public class StockUtil {
         StockUtil util = new StockUtil();
 //        List<Stock> list = util.getAll();
 //        util.searchStockByPrice(0.0, 10.0, true, list);
-        util.getMeanBackStockByBuys(1, 20);
+        util.getMeanBackStockByBuys(8, 16);
     }
 }
