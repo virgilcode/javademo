@@ -152,12 +152,7 @@ public class StockUtil {
         List<Stock> list = new ArrayList<>();
         for (int p = 1; p <= 3; p++) {
             String eastBuysUrl = "http://nufm.dfcfw.com/EM_Finance2014NumericApplication/JS.aspx/JS.aspx?type=ct&st=(FFARank)&sr=1&p=" + p + "&ps=50&js=var%20tnJcCXWW={pages:(pc),data:[(x)]}&token=894050c76af8597a853f5b408b759f5d&cmd=C._A&sty=DCFFITAMA&rt=48663654";
-            Document doc = Jsoup.connect(eastBuysUrl)
-                    .data("query", "Java")
-                    .userAgent("Mozilla")
-                    .cookie("auth", "token")
-                    .timeout(10000)
-                    .post();
+            Document doc = Jsoup.connect(eastBuysUrl).data("query", "Java").userAgent("Mozilla").cookie("auth", "token").timeout(10000).post();
             String json = doc.body().text();
             json = json.substring(json.indexOf("{"), json.length());
             JSONObject jo = JSONObject.fromObject(json);
@@ -193,17 +188,97 @@ public class StockUtil {
             }
         }
         ObjectMapper mapper = new ObjectMapper();
-        System.out.println("查询结果：");
+        System.out.println("主力查询结果：");
         for (Iterator<Stock> it = list.iterator(); it.hasNext();) {
             System.out.println(mapper.writeValueAsString(it.next()));
         }
 
+    }
+    private static final String burl = "http://hqdigi2.eastmoney.com/EM_Quote2010NumericApplication/index.aspx?type=s&sortType=J&sortRule=-1&pageSize=20&page=";
+    private static final String stoken = "&jsName=quote_123&style=10&token=44c9d251add88e27b65ed86506f6e5da&_g=0.41761784395202994";
+    private static final String ztoken = "&jsName=quote_123&style=20&token=44c9d251add88e27b65ed86506f6e5da&_g=0.624109301250428";
+
+    public void getMeanBackStockByChange(double price_min, double price_max) throws Exception {
+        wc.getOptions().setUseInsecureSSL(true);
+        wc.getOptions().setJavaScriptEnabled(true); // 启用JS解释器，默认为true
+        wc.getOptions().setCssEnabled(false); // 禁用css支持
+        wc.getOptions().setThrowExceptionOnScriptError(false); // js运行错误时，是否抛出异常
+        wc.getOptions().setTimeout(50000); // 设置连接超时时间 ，这里是10S。如果为0，则无限期等待
+        wc.getOptions().setDoNotTrackEnabled(false);
+        java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF);
+        List<Stock> list = new ArrayList<>();
+        String[] urls = new String[10];
+        for (int i = 0; i < 5; i++) {
+            urls[i] = this.burl + (i + 1) + this.stoken;
+        }
+        for (int i = 5; i < 10; i++) {
+            urls[i] = this.burl + (i + 1) + this.ztoken;
+        }
+        for (String url : urls) {
+            Document doc = Jsoup.connect(url).data("query", "Java").userAgent("Mozilla").cookie("auth", "token").timeout(10000).post();
+            String json = doc.body().text();
+            json = json.substring(json.indexOf("{"), json.length());
+            JSONObject jo = JSONObject.fromObject(json);
+            String rank = jo.getString("rank");
+            String[] arrays = rank.split(",");
+
+            for (String a : arrays) {
+                Pattern pattern = Pattern.compile("^(0|6)[0-3][0-3]\\d{3}$");
+                Matcher m = pattern.matcher(a);
+                if (m.find()) {
+                    Stock stock = new Stock();
+                    String nurl = "";
+                    System.out.println(a);
+                    if (a.startsWith("6")) {
+                        nurl = "http://quote.eastmoney.com/sh" + a + ".html";
+                    } else {
+                        nurl = "http://quote.eastmoney.com/sz" + a + ".html";
+                    }
+                    HtmlPage page = wc.getPage(nurl);
+                    HtmlElement documentElement = page.getDocumentElement();
+                    Document ndoc = Jsoup.parse(documentElement.asXml());
+                    String name = ndoc.select("#name").text();
+                    stock.setName(name);
+                    stock.setCode(a);
+                    String price = ndoc.select("#price9").text();
+                    System.out.println(price);
+                    stock.setNowPrice(Double.parseDouble(price));
+                    double dp = Double.parseDouble(price);
+                    if (dp > price_min && dp < price_max) {
+                        boolean res = findMatcherStockByCode(a);
+                        if (res) {
+                            list.add(stock);
+                        }
+                    }
+                }
+            }
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        System.out.println("换手率查询结果：");
+        for (Iterator<Stock> it = list.iterator(); it.hasNext();) {
+            System.out.println(mapper.writeValueAsString(it.next()));
+        }
+    }
+
+    public void isSuspension(String url) throws IOException {
+        wc.getOptions().setUseInsecureSSL(true);
+        wc.getOptions().setJavaScriptEnabled(true); // 启用JS解释器，默认为true
+        wc.getOptions().setCssEnabled(false); // 禁用css支持
+        wc.getOptions().setThrowExceptionOnScriptError(false); // js运行错误时，是否抛出异常
+        wc.getOptions().setTimeout(50000); // 设置连接超时时间 ，这里是10S。如果为0，则无限期等待
+        wc.getOptions().setDoNotTrackEnabled(false);
+        HtmlPage page = wc.getPage(url);
+        HtmlElement documentElement = page.getDocumentElement();
+        Document ndoc = Jsoup.parse(documentElement.asXml());
+        System.out.println(ndoc);
     }
 
     public static void main(String[] args) throws Exception {
         StockUtil util = new StockUtil();
 //        List<Stock> list = util.getAll();
 //        util.searchStockByPrice(0.0, 10.0, true, list);
-        util.getMeanBackStockByBuys(8, 16);
+        //util.getMeanBackStockByBuys(8, 16);
+        util.getMeanBackStockByChange(10, 20);
+       // util.isSuspension("http://quote.eastmoney.com/sh603025.html");
     }
 }
