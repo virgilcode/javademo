@@ -52,7 +52,7 @@ import org.jsoup.select.Elements;
 public class HistoryInfo {
 
     /**
-     * 
+     *
      * @param url
      * @return
      * @throws Exception
@@ -108,7 +108,6 @@ public class HistoryInfo {
                 }
             }
         }
-        ;
         stock.setList(list);
         return stock;
     }
