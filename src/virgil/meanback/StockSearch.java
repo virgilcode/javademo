@@ -24,7 +24,7 @@ public class StockSearch {
 
     public static void main(String[] args) throws Exception {
         StockSearch stockSearch=new StockSearch();
-        String code="000910";
+        String code="002021";
         stockSearch.stockMeanBack(code,15,30);
     }
 }
