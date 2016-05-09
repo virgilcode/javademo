@@ -1,0 +1,698 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<resources> 
+    <!--白色 --> 
+    <color name="#ffffff">
+        <value>ffffff</value>
+        <level>1</level>
+        <res>阴性</res>
+    </color>
+    <!--象牙色 --> 
+    <color name="#fffff0">
+        <value>fffff0</value>
+        <level>1</level>
+        <res>阴性</res>
+    </color>
+    <!--亮黄色 --> 
+    <color name="#ffffe0">
+        <value>ffffe0</value>
+        <level>2</level>
+        <res>阴性</res>
+    </color>
+    <!--黄色 --> 
+    <color name="#ffff00">
+        <value>ffff00</value>
+        <level>3</level>
+        <res>阴性</res>
+    </color>
+    <!--雪白色 --> 
+    <color name="#fffafa">
+        <value>fffafa</value>
+        <level>1</level>
+        <res>阴性</res>
+    </color>
+    <!--花白色 --> 
+    <color name="#fffaf0">
+        <value>fffaf0</value>
+        <level>1</level>
+        <res>阴性</res>
+    </color>
+    <!--柠檬绸色 --> 
+    <color name="#fffacd">
+        <value>fffacd</value>
+        <level>2</level>
+        <res>阴性</res>
+    </color>
+    <!--米绸色 -->
+    <color name="#fff8dc">
+        <value>fff8dc</value>
+        <level>2</level>
+        <res>阴性</res>
+    </color> 
+    <!--海贝色 --> 
+    <color name="#fff5ee">
+        <value>fff5ee</value>
+        <level>1</level>
+        <res>阴性</res>
+    </color>
+    <!--淡紫红 --> 
+    <color name="#fff0f5">
+        <value>fff0f5</value>
+        <level>4</level>
+        <res>弱阳性</res>
+    </color>
+    <!--番木色 --> 
+    <color name="#ffefd5">
+        <value>ffefd5</value>
+        <level>3</level>
+    </color>
+    <!--白杏色 --> 
+    <color name="#ffebcd">
+        <value>ffebcd</value>
+        <level>3</level>
+    </color>
+    <!--浅玫瑰色 --> 
+    <color name="#ffe4e1">
+        <value>ffe4e1</value>
+        <level>4</level>
+    </color>
+    <!--桔黄色 -->
+    <color name="#ffe4c4">
+        <value>ffe4c4</value>
+        <level>3</level>
+    </color> 
+    <!--鹿皮色 --> 
+    <color name="#ffe4b5">
+        <value>ffe4b5</value>
+        <level>3</level>
+    </color>
+    <!--纳瓦白 --> 
+    <color name="#ffdead">
+        <value>ffdead</value>
+        <level>3</level>
+    </color>
+    <!--桃色 --> 
+    <color name="#ffdab9">
+        <value>ffdab9</value>
+        <level>3</level>
+    </color>
+    <!--金色 --> 
+    <color name="#ffd700">
+        <value>ffd700</value>
+        <level>2</level>
+    </color>
+    <!--粉红色 --> 
+    <color name="#ffc0cb">
+        <value>ffc0cb</value>
+        <level>5</level>
+    </color>
+    <!--亮粉红色 --> 
+    <color name="#ffb6c1">
+        <value>ffb6c1</value>
+        <level>5</level>
+    </color>
+    <!--橙色 --> 
+    <color name="#ffa500">
+        <value>ffa500</value>
+        <level>3</level>
+    </color>
+    <!--亮肉色 --> 
+    <color name="#ffa07a">
+        <value>ffa07a</value>
+        <level>5</level>
+    </color>
+    <!--暗桔黄色 --> 
+    <color name="#ff8c00">
+        <value>ff8c00</value>
+        <level>3</level>
+    </color>
+    <!--珊瑚色 --> 
+    <color name="#ff7f50">
+        <value>ff7f50</value>
+        <level>6</level>
+    </color>
+    <!--热粉红色 --> 
+    <color name="#ff69b4">
+        <value>ff69b4</value>
+        <level>6</level>
+    </color>
+    <!--西红柿色 --> 
+    <color name="#ff6347">
+        <value>ff6347</value>
+        <level>7</level>
+    </color>
+    <!--红橙色 --> 
+    <color name="#ff4500">
+        <value>ff4500</value>
+        <level>6</level>
+    </color>
+    <!--深粉红色 --> 
+    <color name="#ff1493">
+        <value>ff1493</value>
+        <level>7</level>
+    </color>
+    <!--紫红色 --> 
+    <color name="#ff00ff">
+        <value>ff00ff</value>
+        <level>8</level>
+    </color>
+    <!--红色 --> 
+    <color name="#ff0000">
+        <value>ff0000</value>
+        <level>8</level>
+    </color>
+    <!--老花色 --> 
+    <color name="#fdf5e6">
+        <value>fdf5e6</value>
+        <level>1</level>
+    </color>
+    <!--亮金黄色 --> 
+    <color name="#fafad2">
+        <value>fafad2</value>
+        <level>2</level>
+    </color>
+    <!--亚麻色 --> 
+    <color name="#faf0e6">
+        <value>faf0e6</value>
+        <level>1</level>
+    </color>
+    <!--古董白 --> 
+    <color name="#faebd7">
+        <value>faebd7</value>
+        <level>1</level>
+    </color>
+    <!--鲜肉色 --> 
+    <color name="#fa8072">
+        <value>fa8072</value>
+        <level>7</level>
+    </color>
+    <!--幽灵白 --> 
+    <color name="#f8f8ff">
+        <value>f8f8ff</value>
+        <level>1</level>
+    </color>
+    <!--薄荷色 --> 
+    <color name="#f5fffa">
+        <value>f5fffa</value>
+        <level>1</level>
+    </color>
+    <!--烟白色 --> 
+    <color name="#f5f5f5">
+        <value>f5f5f5</value>
+        <level>1</level>
+    </color>
+    <!--米色 --> 
+    <color name="#f5f5dc">
+        <value>f5f5dc</value>
+        <level>1</level>
+    </color>
+    <!--浅黄色 --> 
+    <color name="#f5deb3">
+        <value>f5deb3</value>
+        <level>3</level>
+    </color>
+    <!--沙褐色 --> 
+    <color name="#f4a460">
+        <value>f4a460</value>
+        <level>3</level>
+    </color>
+    <!--天蓝色 --> 
+    <color name="#f0ffff">
+        <value>f0ffff</value>
+        <level>1</level>
+    </color>
+    <!--蜜色 --> 
+    <color name="#f0fff0">
+        <value>f0fff0</value>
+        <level>1</level>
+    </color>
+    <!--艾利斯兰 --> 
+    <color name="#f0f8ff">
+        <value>f0f8ff</value>
+        <level>1</level>
+    </color>
+    <!--黄褐色 --> 
+    <color name="#f0e68c">
+        <value>f0e68c</value>
+        <level>2</level>
+    </color>
+    <!--亮珊瑚色 -->
+    <color name="#f08080">
+        <value>f08080</value>
+        <level>7</level>
+    </color> 
+    <!--苍麒麟色 --> 
+    <color name="#eee8aa">
+        <value>eee8aa</value>
+        <level>2</level>
+    </color>
+    <!--紫罗兰色 --> 
+    <color name="#ee82ee">
+        <value>ee82ee</value>
+        <level>6</level>
+    </color>
+    <!--暗肉色 --> 
+    <color name="#e9967a">
+        <value>e9967a</value>
+        <level>7</level>
+    </color>
+    <!--淡紫色 -->
+    <color name="#e6e6fa">
+        <value>e6e6fa</value>
+        <level>4</level>
+    </color> 
+    <!--亮青色 --> 
+    <color name="#e0ffff">
+        <value>e0ffff</value>
+        <level>1</level>
+    </color>
+    <!--实木色 --> 
+    <color name="#deb887">
+        <value>deb887</value>
+        <level>3</level>
+    </color>
+    <!--洋李色 --> 
+    <color name="#dda0dd">
+        <value>dda0dd</value>
+        <level>4</level>
+    </color>
+    <!--no-->
+    <color name="#dcdcdc">
+        <value>dcdcdc</value>
+        <level>1</level>
+    </color> 
+    <!--暗深红色 --> 
+    <color name="#dc143c">
+        <value>dc143c</value>
+        <level>8</level>
+    </color>
+    <!--苍紫罗兰色 --> 
+    <color name="#db7093">
+        <value>db7093</value>
+        <level>7</level>
+    </color>
+    <!--金麒麟色 --> 
+    <color name="#daa520">
+        <value>daa520</value>
+        <level>3</level>
+    </color>
+    <!--淡紫色 --> 
+    <color name="#da70d6">
+        <value>da70d6</value>
+        <level>7</level>
+    </color>
+    <!--蓟色 --> 
+    <color name="#d8bfd8">
+        <value>d8bfd8</value>
+        <level>4</level>
+    </color>
+    <!--亮灰色 --> 
+    <color name="#d3d3d3">
+        <value>d3d3d3</value>
+        <level>9</level>
+    </color>
+    <!--茶色 --> 
+    <color name="#d2b48c">
+        <value>d2b48c</value>
+        <level>3</level>
+    </color>
+    <!--no --> 
+    <color name="#d2691e">
+        <value>d2691e</value>
+        <level>3</level>
+    </color>
+    <!--秘鲁色 --> 
+    <color name="#cd853f">
+        <value>cd853f</value>
+        <level>3</level>
+    </color>
+    <!--印第安红 --> 
+    <color name="#cd5c5c">
+        <value>cd5c5c</value>
+        <level>8</level>
+    </color>
+    <!--中紫罗兰色 --> 
+    <color name="#c71585">
+        <value>c71585</value>
+        <level>8</level>
+    </color>
+    <!--no --> 
+    <color name="#c0c0c0">
+        <value>c0c0c0</value>
+        <level>9</level>
+    </color>
+    <!--暗黄褐色 --> 
+    <color name="#bdb76b">
+        <value>bdb76b</value>
+        <level>1</level>
+    </color>
+    <!--no --> 
+    <color name="#bc8f8f">
+        <value>bc8f8f</value>
+        <level>5</level>
+    </color>
+    <!--no --> 
+    <color name="#ba55d3">
+        <value>ba55d3</value>
+        <level>6</level>
+    </color>
+    <!--暗金黄色 --> 
+    <color name="#b8860b">
+        <value>b8860b</value>
+        <level>3</level>
+    </color>
+    <!--火砖色 -->
+    <color name="#b22222">
+        <value>b22222</value>
+        <level>8</level>
+    </color> 
+    <!--no --> 
+    <color name="#b0e0e6">
+        <value>b0e0e6</value>
+        <level>9</level>
+    </color>
+    <!--no --> 
+    <color name="#b0c4de">
+        <value>b0c4de</value>
+        <level>9</level>
+    </color>
+    <!--no --> 
+    <color name="#afeeee">
+        <value>afeeee</value>
+        <level>9</level>
+    </color>
+    <!--no --> 
+    <color name="#adff2f">
+        <value>adff2f</value>
+        <level>9</level>
+    </color>
+    <!--no --> 
+    <color name="#add8e6">
+        <value>add8e6</value>
+        <level>9</level>
+    </color>
+    <!--暗灰色 --> 
+    <color name="#a9a9a9">
+        <value>a9a9a9</value>
+        <level>9</level>
+    </color>
+    <!--褐色 --> 
+    <color name="#a52a2a">
+        <value>a52a2a</value>
+        <level>8</level>
+    </color>
+    <!--no --> 
+    <color name="#a0522d">
+        <value>a0522d</value>
+        <level>8</level>
+    </color>
+    <!--no --> 
+    <color name="#9932cc">
+        <value>9932cc</value>
+        <level>9</level>
+    </color>
+    <!--no --> 
+    <color name="#98fb98">
+        <value>98fb98</value>
+        <level>9</level>
+    </color>
+    <!--no --> 
+    <color name="#9400d3">
+        <value>9400d3</value>
+        <level>9</level>
+    </color>
+    <!--no --> 
+    <color name="#9370db">
+        <value>9370db</value>
+        <level>9</level>
+    </color>
+    <!--no --> 
+    <color name="#90ee90">
+        <value>90ee90</value>
+        <level>9</level>
+    </color>
+    <!--no --> 
+    <color name="#8fbc8f">
+        <value>8fbc8f</value>
+        <level>9</level>
+    </color>
+    <!--no--> 
+    <color name="#8b4513">
+        <value>8b4513</value>
+        <level>6</level>
+    </color>
+    <!--暗洋红 --> 
+    <color name="#8b008b">
+        <value>8b008b</value>
+        <level>7</level>
+    </color>
+    <!--暗红色 --> 
+    <color name="#8b0000">
+        <value>8b0000</value>
+        <level>8</level>
+    </color>
+    <!--no --> 
+    <color name="#8a2be2">
+        <value>8a2be2</value>
+        <level>8</level>
+    </color>
+    <!--no --> 
+    <color name="#87cefa">
+        <value>87cefa</value>
+        <level>9</level>
+    </color>
+    <!--no --> 
+    <color name="#87ceeb">
+        <value>87ceeb</value>
+        <level>9</level>
+    </color>
+    <!--灰色 -->
+    <color name="#808080">
+        <value>808080</value>
+        <level>9</level>
+    </color> 
+    <!--no --> 
+    <color name="#808000">
+        <value>808000</value>
+        <level>9</level>
+    </color>
+    <!--紫色 -->
+    <color name="#800080">
+        <value>800080</value>
+        <level>8</level>
+    </color> 
+    <!--粟色 --> 
+    <color name="#800000">
+        <value>800000</value>
+        <level>6</level>
+    </color>
+    
+    <color name="#7fffd4">
+        <value>7fffd4</value>
+        <level>3</level>
+    </color> 
+    
+    <color name="#7fff00">
+        <value>7fff00</value>
+        <level>3</level>
+    </color>
+    
+    <color name="#7cfc00">
+        <value>7cfc00</value>
+        <level>3</level>
+    </color>
+    <!--中暗蓝色 --> 
+    <color name="#7b68ee">
+        <value>7b68ee</value>
+        <level>7</level>
+    </color>
+    <!--亮蓝灰 --> 
+    <color name="#778899">
+        <value>778899</value>
+        <level>9</level>
+    </color>
+    <!--灰石色 --> 
+    <color name="#708090">
+        <value>708090</value>
+        <level>9</level>
+    </color>
+    <!--no --> 
+    <color name="#6b8e23">
+        <value>6b8e23</value>
+        <level>3</level>
+    </color>
+    <!--no --> 
+    <color name="#6a5acd">
+        <value>6a5acd</value>
+        <level>7</level>
+    </color>
+    <!--暗灰色 --> 
+    <color name="#696969">
+        <value>696969</value>
+        <level>9</level>
+    </color>
+    <!--no --> 
+    <color name="#66cdaa">
+        <value>66cdaa</value>
+        <level>9</level>
+    </color>
+    <!--no -->
+    <color name="#6495ed">
+        <value>6495ed</value>
+        <level>9</level>
+    </color> 
+    <!--no --> 
+    <color name="#5f9ea0">
+        <value>5f9ea0</value>
+        <level>9</level>
+    </color>
+    <!--no --> 
+    <color name="#556b2f">
+        <value>556b2f</value>
+        <level>9</level>
+    </color>
+    <!--靛青色 --> 
+    <color name="#4b0082">
+        <value>4b0082</value>
+        <level>8</level>
+    </color>
+    <!--no--> 
+    <color name="#48d1cc">
+        <value>48d1cc</value>
+        <level>9</level>
+    </color>
+    <!--暗灰蓝色 --> 
+    <color name="#483d8b">
+        <value>483d8b</value>
+        <level>8</level>
+    </color>
+    <!--no-->
+    <color name="#4682b4">
+        <value>4682b4</value>
+        <level>9</level>
+    </color> 
+    <!--no -->
+    <color name="#4169e1">
+        <value>4169e1</value>
+        <level>9</level>
+    </color> 
+    <!--no --> 
+    <color name="#40e0d0">
+        <value>40e0d0</value>
+        <level>9</level>
+    </color>
+    <!--no --> 
+    <color name="#3cb371">
+        <value>3cb371</value>
+        <level>9</level>
+    </color>
+    <!--no --> 
+    <color name="#32cd32">
+        <value>32cd32</value>
+        <level>9</level>
+    </color>
+    <!--暗瓦灰色 --> 
+    <color name="#2f4f4f">
+        <value>2f4f4f</value>
+        <level>9</level>
+    </color>
+    <!--no--> 
+    <color name="#2e8b57">
+        <value>2e8b57</value>
+        <level>9</level>
+    </color>
+    <!--no --> 
+    <color name="#228b22">
+        <value>228b22</value>
+        <level>9</level>
+    </color>
+    <!--no --> 
+    <color name="#20b2aa">
+        <value>20b2aa</value>
+        <level>9</level>
+    </color>
+    <!--no --> 
+    <color name="#1e90ff">
+        <value>1e90ff</value>
+        <level>9</level>
+    </color>
+    <!--no--> 
+    <color name="#191970">
+        <value>191970</value>
+        <level>8</level>
+    </color>
+    <!--no --> 
+    <color name="#00ffff">
+        <value>00ffff</value>
+        <level>9</level>
+    </color>
+    <!--no --> 
+    <color name="#00ff7f">
+        <value>00ff7f</value>
+        <level>9</level>
+    </color>
+    <!--no--> 
+    <color name="#00ff00">
+        <value>00ff00</value>
+        <level>9</level>
+    </color>
+    <!--no--> 
+    <color name="#00fa9a">
+        <value>00fa9a</value>
+        <level>9</level>
+    </color>
+    <!--no --> 
+    <color name="#00ced1">
+        <value>00ced1</value>
+        <level>9</level>
+    </color>
+    <!--no --> 
+    <color name="#00bfff">
+        <value>00bfff</value>
+        <level>9</level>
+    </color>
+    <!--no --> 
+    <color name="#008b8b">
+        <value>008b8b</value>
+        <level>9</level>
+    </color>
+    <!--no --> 
+    <color name="#008080">
+        <value>008080</value>
+        <level>9</level>
+    </color>
+    <!--no--> 
+    <color name="#008000">
+        <value>008000</value>
+        <level>9</level>
+    </color>
+    <!--no--> 
+    <color name="#006400">
+        <value>006400</value>
+        <level>9</level>
+    </color>
+    <!--no --> 
+    <color name="#0000ff">
+        <value>0000ff</value>
+        <level>9</level>
+    </color>
+    <!--no--> 
+    <color name="#0000cd">
+        <value>0000cd</value>
+        <level>9</level>
+    </color>
+    <!--暗蓝色 --> 
+    <color name="#00008b">
+        <value>00008b</value>
+        <level>9</level>
+    </color>
+    <!--海军色 --> 
+    <color name="#000080">
+        <value>000080</value>
+        <level>9</level>
+    </color>
+    <!--黑色 --> 
+    <color name="#000000">
+        <value>000000</value>
+        <level>9</level>
+    </color>
+</resources>
